@@ -36,7 +36,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var Excel = require("exceljs");
-var md5_1 = require("./md5");
 var Xlsx = /** @class */ (function () {
     function Xlsx(path) {
         this.path = path;
@@ -54,7 +53,7 @@ var Xlsx = /** @class */ (function () {
                             // get each worksheet
                             excel.eachSheet(function (worksheet, sheetId) {
                                 //get definition cell 
-                                var row = worksheet.getRow(5);
+                                var row = worksheet.getRow(6);
                                 //get each row 
                                 row.eachCell(function (cell, colNumber) {
                                     console.log('====================================');
@@ -73,37 +72,6 @@ var Xlsx = /** @class */ (function () {
     };
     return Xlsx;
 }());
-var x = new Xlsx(__dirname + "\\alipay.xlsx");
-x.read();
-var appid = '20180630000181570';
-var key = 'q_LFFENPEitoh_fXevZv';
-// var appid: string = '2015063000000001';
-// var key: string = '12345678';
-var salt = (new Date).getTime();
-var query = 'banana';
-// 多个query可以用\n连接  如 query='apple\norange\nbanana\npear'
-var from = 'en';
-var to = 'zh';
-var sign = md5_1.MD5(appid + query + salt + key);
-var options = {
-    url: 'http://api.fanyi.baidu.com/api/trans/vip/translate',
-    type: 'get',
-    dataType: 'jsonp',
-    data: {
-        q: query,
-        appid: appid,
-        salt: salt,
-        from: from,
-        to: to,
-        sign: sign
-    }
-};
-function callback(error, response, body) {
-    if (!error && response.statusCode == 200) {
-        var info = JSON.parse(body);
-        // console.log(info.stargazers_count + " Stars");
-        console.log(info);
-    }
-}
-// Request(options, callback);
+// var x = new Xlsx(`${__dirname}\\alipay.xlsx`);
+// x.read();
 //# sourceMappingURL=excel.js.map
