@@ -51,9 +51,15 @@ var Xlsx = /** @class */ (function () {
                     case 1:
                         excel = _a.sent();
                         if (excel) {
+                            // get each worksheet
                             excel.eachSheet(function (worksheet, sheetId) {
-                                console.log(worksheet.name + "  " + sheetId);
-                                console.log(worksheet.getRow(1).cellCount);
+                                //get definition cell 
+                                var row = worksheet.getRow(5);
+                                //get each row 
+                                row.eachCell(function (cell, colNumber) {
+                                    console.log('====================================');
+                                    console.log(cell.value);
+                                });
                             });
                         }
                         else {

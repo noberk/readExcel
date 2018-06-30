@@ -1,33 +1,44 @@
 import * as Excel from "exceljs";
 import * as Request from "request";
 import { MD5 } from "./md5";
+import { clearLine } from "readline";
 type Workbook = Excel.Workbook;
 class Xlsx {
-          private workbook: Workbook;
-          constructor(public path: string) {
-                    this.workbook = new Excel.Workbook();
-          }
-          async read() {
-                    var excel = await this.workbook.xlsx.readFile(this.path);
-                    if (excel) {
-                              excel.eachSheet((worksheet, sheetId) => {
-                                        console.log(`${worksheet.name}  ${sheetId}`);
-                                        console.log(worksheet.getRow(1).cellCount);
-                                         
-                                        
-                              })
-                    } else {
-                              console.error(excel);
-                              console.error("error~~~~~~~~~~~");
-                    }
-          }
+    private workbook: Workbook;
+    constructor(public path: string) {
+        this.workbook = new Excel.Workbook();
+    }
+    async read() {
+        var excel = await this.workbook.xlsx.readFile(this.path);
+        if (excel) {
+            // get each worksheet
+            excel.eachSheet((worksheet, sheetId) => {
+                //get definition cell 
+                let row = worksheet.getRow(5);
+
+                //get each row 
+                row.eachCell((cell, colNumber) => {
+                    
+                     console.log('====================================');
+                     console.log(cell.value);
+                    
+                })
+
+
+
+            })
+        } else {
+            console.error(excel);
+            console.error("error~~~~~~~~~~~");
+        }
+    }
 
 }
 
 
 var x = new Xlsx(`${__dirname}\\alipay.xlsx`);
 x.read();
- var appid: string = '20180630000181570';
+var appid: string = '20180630000181570';
 var key: string = 'q_LFFENPEitoh_fXevZv';
 // var appid: string = '2015063000000001';
 // var key: string = '12345678';
@@ -38,25 +49,25 @@ var from = 'en';
 var to = 'zh';
 var sign = MD5(appid + query + salt + key);
 var options = {
-          url: 'http://api.fanyi.baidu.com/api/trans/vip/translate',
-          type: 'get',
-          dataType: 'jsonp',
-          data: {
-                    q: query,
-                    appid: appid,
-                    salt: salt,
-                    from: from,
-                    to: to,
-                    sign: sign
-          }
+    url: 'http://api.fanyi.baidu.com/api/trans/vip/translate',
+    type: 'get',
+    dataType: 'jsonp',
+    data: {
+        q: query,
+        appid: appid,
+        salt: salt,
+        from: from,
+        to: to,
+        sign: sign
+    }
 };
 
 function callback(error: any, response: any, body: any) {
-          if (!error && response.statusCode == 200) {
-                    var info = JSON.parse(body);
-                    // console.log(info.stargazers_count + " Stars");
-                    console.log(info);
-          }
+    if (!error && response.statusCode == 200) {
+        var info = JSON.parse(body);
+        // console.log(info.stargazers_count + " Stars");
+        console.log(info);
+    }
 }
 
 // Request(options, callback);
