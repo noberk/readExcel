@@ -36,7 +36,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var Excel = require("exceljs");
-var Request = require("request");
 var md5_1 = require("./md5");
 var Xlsx = /** @class */ (function () {
     function Xlsx(path) {
@@ -54,6 +53,7 @@ var Xlsx = /** @class */ (function () {
                         if (excel) {
                             excel.eachSheet(function (worksheet, sheetId) {
                                 console.log(worksheet.name + "  " + sheetId);
+                                console.log(worksheet.getRow(1).cellCount);
                             });
                         }
                         else {
@@ -67,8 +67,8 @@ var Xlsx = /** @class */ (function () {
     };
     return Xlsx;
 }());
-// var x = new Xlsx(`${__dirname}\\alipay.xlsx`);
-// x.read();
+var x = new Xlsx(__dirname + "\\alipay.xlsx");
+x.read();
 var appid = '20180630000181570';
 var key = 'q_LFFENPEitoh_fXevZv';
 // var appid: string = '2015063000000001';
@@ -99,5 +99,5 @@ function callback(error, response, body) {
         console.log(info);
     }
 }
-Request(options, callback);
+// Request(options, callback);
 //# sourceMappingURL=excel.js.map

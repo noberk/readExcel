@@ -12,6 +12,9 @@ class Xlsx {
                     if (excel) {
                               excel.eachSheet((worksheet, sheetId) => {
                                         console.log(`${worksheet.name}  ${sheetId}`);
+                                        console.log(worksheet.getRow(1).cellCount);
+                                         
+                                        
                               })
                     } else {
                               console.error(excel);
@@ -22,8 +25,8 @@ class Xlsx {
 }
 
 
-// var x = new Xlsx(`${__dirname}\\alipay.xlsx`);
-// x.read();
+var x = new Xlsx(`${__dirname}\\alipay.xlsx`);
+x.read();
  var appid: string = '20180630000181570';
 var key: string = 'q_LFFENPEitoh_fXevZv';
 // var appid: string = '2015063000000001';
@@ -56,4 +59,4 @@ function callback(error: any, response: any, body: any) {
           }
 }
 
-Request(options, callback);
+// Request(options, callback);
